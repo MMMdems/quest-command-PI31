@@ -10,6 +10,8 @@ public class Camera : MonoBehaviour
     public float minUpDownLookAngle = -75f;
     public float maxUpDownLookAngle = 75f;
     float xRotation = 0f;
+
+    private InteractableObject _prevInteractable;
     
     void Start()
     {
@@ -28,6 +30,40 @@ public class Camera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         // Повороты по оси X (вправо-влево)
         playerBody.Rotate(Vector3.up * mouseX);
-        
+
+
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 10))
+        {
+            var interactable = hit.collider.GetComponent<InteractableObject>();
+            if (interactable != null )
+            {
+                if (interactable != _prevInteractable)
+                {
+                    print("outlined");
+                    interactable.SwitchOutline();
+                    _prevInteractable = interactable;
+                }
+                
+                if (interactable.type == InteractableObject.TypeInteract.Door )
+                {
+                    var door = hit.collider.GetComponent<Door>();
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        if (interactable.hasInteract && door._opened) {interactable.hasInteract = false; }
+                        else if (!interactable.hasInteract && !door._opened) {interactable.hasInteract = true; }
+                    }
+                }
+            }
+            else if (_prevInteractable != null)
+            {
+                print("disoutlined");
+                _prevInteractable.SwitchOutline();
+                _prevInteractable = null;
+            }
+
+            
+        }
     }
 }
