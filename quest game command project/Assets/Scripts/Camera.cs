@@ -37,33 +37,30 @@ public class Camera : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 10))
         {
             var interactable = hit.collider.GetComponent<InteractableObject>();
-            if (interactable != null )
+            if (interactable != null)
             {
                 if (interactable != _prevInteractable)
                 {
-                    print("outlined");
+                    print("outlined " + interactable.name);
                     interactable.SwitchOutline();
                     _prevInteractable = interactable;
                 }
-                
-                if (interactable.type == InteractableObject.TypeInteract.Door )
+
+                if (interactable.type == InteractableObject.TypeInteract.Door)
                 {
-                    var door = hit.collider.GetComponent<Door>();
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        if (interactable.hasInteract && door._opened) {interactable.hasInteract = false; }
-                        else if (!interactable.hasInteract && !door._opened) {interactable.hasInteract = true; }
+                        if (interactable.hasInteract && interactable.door.Opened) { interactable.hasInteract = false; }
+                        else if (!interactable.hasInteract && !interactable.door.Opened) { interactable.hasInteract = true; }
                     }
                 }
             }
             else if (_prevInteractable != null)
             {
-                print("disoutlined");
+                print("disoutlined " + _prevInteractable);
                 _prevInteractable.SwitchOutline();
                 _prevInteractable = null;
             }
-
-            
         }
     }
 }

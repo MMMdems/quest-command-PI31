@@ -8,7 +8,9 @@ public class InteractableObject : MonoBehaviour
     public bool hasInteract = false;
 
     public TypeInteract type;
-    
+
+    public Door door;
+
     public enum TypeInteract
     {
         Door, Lever
@@ -19,6 +21,11 @@ public class InteractableObject : MonoBehaviour
     {
         _outline = GetComponent<Outline>();
         _outline.OutlineWidth = 0;
+
+        if (type == TypeInteract.Door)
+        {
+            door = GetComponent<Door>();
+        }
     }
 
     public void SwitchOutline()
