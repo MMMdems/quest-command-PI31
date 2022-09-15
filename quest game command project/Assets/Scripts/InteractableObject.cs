@@ -6,34 +6,36 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public bool hasInteract = false;
-
+    
     public TypeInteract type;
 
-    public Door door;
+    public Rotatable rotatable;
 
     public enum TypeInteract
     {
-        Door, Lever
+        Rotatable
     }
-    
+
     private Outline _outline;
     void Start()
     {
         _outline = GetComponent<Outline>();
         _outline.OutlineWidth = 0;
 
-        if (type == TypeInteract.Door)
+        if (type == TypeInteract.Rotatable)
         {
-            door = GetComponent<Door>();
+            rotatable = GetComponent<Rotatable>();
         }
+        
     }
 
-    public void SwitchOutline()
+    public void OutlineOn()
     {
-        switch (_outline.OutlineWidth)
-        {
-            case 0: { _outline.OutlineWidth = 2; break; }
-            case 2: { _outline.OutlineWidth = 0; break; }
-        }
+        _outline.OutlineWidth = 2;
+    }
+    
+    public void OutlineOff()
+    {
+        _outline.OutlineWidth = 0;
     }
 }
