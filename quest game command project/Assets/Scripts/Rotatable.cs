@@ -7,6 +7,7 @@ using UnityEngine;
 public class Rotatable : MonoBehaviour
 {
     [Header("Door parameters")]
+    
     [SerializeField] private Vector3 _openAngle, _closeAngle;
     [SerializeField] private float _animTime = 0.6f;
     

@@ -8,9 +8,14 @@ public class PlayerInteractions : MonoBehaviour
     private InteractableObject _interactable;
     private InteractableObject _prevInteractable;
     private RaycastHit _hit;
-
-    [SerializeField] private Camera cam;
+    private Camera cam;
+    
     [SerializeField] private float interactDistance = 3f;
+
+    private void Start()
+    {
+        cam = Camera.main;
+    }
 
     private void Update()
     {
