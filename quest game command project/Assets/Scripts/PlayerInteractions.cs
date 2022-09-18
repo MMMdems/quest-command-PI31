@@ -8,14 +8,8 @@ public class PlayerInteractions : MonoBehaviour
     private InteractableObject _interactable;
     private InteractableObject _prevInteractable;
     private RaycastHit _hit;
-    private Camera cam;
     
     [SerializeField] private float interactDistance = 3f;
-
-    private void Start()
-    {
-        cam = Camera.main;
-    }
 
     private void Update()
     {
@@ -24,9 +18,10 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Interaction()
     {
-        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-        
+        Ray ray = new Ray(transform.position, transform.forward);
 
+        Debug.DrawRay(transform.position, transform.forward);
+        
         if (Physics.Raycast(ray, out _hit, interactDistance))
         {
             if (_hit.collider.TryGetComponent(out _interactable))
