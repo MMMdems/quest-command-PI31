@@ -10,6 +10,7 @@ public class PlayerInteractions : MonoBehaviour
     private RaycastHit _hit;
     
     [SerializeField] private float interactDistance = 3f;
+    [SerializeField] private KeyCode interactKey;
 
     private void Update()
     {
@@ -36,10 +37,18 @@ public class PlayerInteractions : MonoBehaviour
 
                 if (_interactable.type == InteractableObject.TypeInteract.Rotatable)
                 {
-                    if (Input.GetKeyDown(KeyCode.F))
+                    if (Input.GetKeyDown(interactKey))
                     {
                         if (_interactable.hasInteract && _interactable.rotatable.Opened) { _interactable.hasInteract = false; }
                         else if (!_interactable.hasInteract && !_interactable.rotatable.Opened) { _interactable.hasInteract = true; }
+                    }
+                }
+
+                if (_interactable.type == InteractableObject.TypeInteract.Collectable)
+                {
+                    if (Input.GetKeyDown(interactKey))
+                    {
+                        if (!_interactable.hasInteract && !_interactable.collectable.InHand) { _interactable.hasInteract = true; }
                     }
                 }
             }

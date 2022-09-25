@@ -6,14 +6,15 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public bool hasInteract = false;
-    
+
     public TypeInteract type;
 
     public Rotatable rotatable;
+    public CollectableItem collectable;
 
     public enum TypeInteract
     {
-        Rotatable
+        Rotatable, Collectable
     }
 
     private Outline _outline;
@@ -26,14 +27,19 @@ public class InteractableObject : MonoBehaviour
         {
             rotatable = GetComponent<Rotatable>();
         }
-        
+
+        if (type == TypeInteract.Collectable)
+        {
+            collectable = GetComponent<CollectableItem>();
+        }
+
     }
 
     public void OutlineOn()
     {
         _outline.OutlineWidth = 2;
     }
-    
+
     public void OutlineOff()
     {
         _outline.OutlineWidth = 0;
