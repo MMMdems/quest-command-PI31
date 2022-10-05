@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    private RectTransform _rect;
-
+    private RectTransform _rectInv;
+    [SerializeField] private RectTransform _rectActive;
+    
     [SerializeField] private int _currentItem = -1;
     [SerializeField] private int _moveItem = -1;
 
@@ -20,11 +21,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] private float animTime = 0.05f;
     private float _timer = 0, _kTime = 1f;
     private Vector3 _inactivePos, _activePos;
-    private bool _inAnim = false;
+    public bool _inAnim { get; private set; } = false;
 
     private void Start()
     {
-        _rect = GetComponent<RectTransform>();
+        _rectInv = GetComponent<RectTransform>();
+        InventoryRefresh();
     }
 
     private void Update()
@@ -79,9 +81,6 @@ public class Inventory : MonoBehaviour
         if (items.Count > 0) 
         {
             items.Remove(item);
-            InventoryRefresh();
-
-            Debug.Log(items.Count);
 
             _inactivePos = slots[items.Count].transform.localPosition;
             _activePos = new Vector3(slots[items.Count].transform.localPosition.x, slots[items.Count].transform.localPosition.y - 100);
@@ -90,19 +89,32 @@ public class Inventory : MonoBehaviour
             
             if (_currentItem > 0) _currentItem--;
             else _currentItem = 0;
+            InventoryRefresh();
             
         }
     }
 
     private void InventoryRefresh()
     {
+        int posStep = items.Count-1;
+        _rectInv.sizeDelta = new Vector2(100 + 125 * (posStep), 100);
+        _rectInv.anchoredPosition = new Vector2(50 + (posStep) * 65, 50);
+
+        _rectActive.anchoredPosition = new Vector2(50 + (_currentItem) * 120, 50);
+
         if (items.Count > 0)
         {
-            _rect.sizeDelta = new Vector2(100 + 125 * (items.Count - 1), 100);
-            _rect.anchoredPosition = new Vector2(50 + (items.Count - 1) * 65, 50);
-
             foreach (var icon in icons) { icon.sprite = null; }
             for (int i = 0; i < items.Count; i++) { icons[i].sprite = items[i].icon; }
+        }
+        else
+        {
+            _rectActive.anchoredPosition = new Vector2(50 + (-1) * 120, 50);
+        }
+
+        if (_currentItem != -1 && !items[_currentItem].InHand)
+        {
+            _rectActive.anchoredPosition = new Vector2(50 + (-1) * 120, 50);
         }
     }
 
@@ -113,5 +125,6 @@ public class Inventory : MonoBehaviour
             case true: { items[_currentItem].InHand = true; items[_currentItem].gameObject.SetActive(true); break; }
             case false: { items[_currentItem].InHand = false; items[_currentItem].gameObject.SetActive(false); break; }
         }
+        InventoryRefresh();
     }
 }
