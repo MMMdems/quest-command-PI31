@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        
         if (_controller.isGrounded && _velocity.y < 0)
         {
             _velocity.y = -2f;
