@@ -154,8 +154,8 @@ public class Inventory : MonoBehaviour
     private void InventoryRefresh()
     {
         int posStep = items.Count - 1;
-        _rectInv.sizeDelta = new Vector2(100 + 125 * (posStep), 100);
-        _rectInv.anchoredPosition = new Vector2(50 + (posStep) * 65, 50);
+        _rectInv.sizeDelta = new Vector2(100 + 120 * (posStep), 100);
+        _rectInv.anchoredPosition = new Vector2(50 + (posStep) * 60, 50);
 
         _rectActive.anchoredPosition = new Vector2(50 + (_currentItem) * 120, 50);
 

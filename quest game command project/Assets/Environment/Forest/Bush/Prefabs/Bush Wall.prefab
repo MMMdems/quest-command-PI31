@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3956435447185326095}
   - component: {fileID: 92269396469338026}
   - component: {fileID: 2784132556170279776}
+  - component: {fileID: 2932392512335956251}
   m_Layer: 0
   m_Name: Bush Wall
   m_TagString: Untagged
@@ -39,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4441611082260191925}
-  m_Mesh: {fileID: -5870239098175389370, guid: 99da38d59c7ea2741a55eb078d009e72, type: 3}
+  m_Mesh: {fileID: -137811732348827383, guid: 99da38d59c7ea2741a55eb078d009e72, type: 3}
 --- !u!23 &2784132556170279776
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2932392512335956251
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441611082260191925}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.2, y: 4.16242, z: 1.5}
+  m_Center: {x: -2.5106091, y: 1.7398796, z: -0.013318747}
